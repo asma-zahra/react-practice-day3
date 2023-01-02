@@ -1,2 +1,3 @@
 # react-practice-day3
-![image](https://user-images.githubusercontent.com/74482130/210250491-1d492cdb-3e8e-4fd1-8cba-44cd8f30a6f5.png)
+
+![Capture](https://user-images.githubusercontent.com/74482130/210250632-7f1a1e16-9075-489b-8782-9b7b6ee1373a.PNG)
