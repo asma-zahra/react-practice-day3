@@ -1,0 +1,398 @@
+=================Laying the foundation Day 3 ==============
+Q- What npm init does?
+A- initialize npm and package.json created, configration is used to manage dependencies.
+
+Q- what is browserList?
+link - https://browsersl.ist/
+A-  "browserslist": [
+    "last 2 Chrome versions"
+  ]
+ last two chrome version 
+"it does not means it will only work chrome, it means it will defenaitly work on chrome last two version for sure."
+
+======================================================
+some browser does not know es6. we need to convert our code compatible for older browser who does not know es6
+for that we will use BABEL.
+
+Q- What is polyfill?
+exp - if your browser does not understand promises then that piece of code will convert to other code that is called polyfills. which tool convert newer code to older code is known as BABEL.
+
+1- BABEL uses browserlist which track which version our must be working .
+2- we does not need to write polyfill (older code)
+babel automatically do this for us
+================================================
+Q- What is Babel?
+Babel is Node Package. it covert code newer code to older code
+
+Q- git init 
+initialize repo and add gitignore file
+===================================================
+Q- How to make scalabe production app
+so many thing react does and so many thing bundlers does, to make app faster
+bundlers does-
+1- tree shaking make app mage
+2-image optimization because of compression
+3- Js optimization by minifiies code
+4- HOT MODULE Replacement
+====================================================
+Q- How to run app
+use command
+npx parcel index.html
+
+inside package.json make changes in script to run the project
+
+ "scripts": {
+    "start": "parcel index.html",
+    "test": "jest"
+  },
+
+- we add "start": "parcel index.html", to make command shorter
+now you can run the app using
+
+"NPM run start" as we have created start in script
+shortcut of "NPM run start" is ==> "npm start"
+
+output==>>>
+PS D:\React-practice> npm run start
+
+> react-practice@1.0.0 start
+> parcel index.html
+
+Server running at http://localhost:1234
+✨ Built in 8ms
+
+it run our app exactly in the same way
+===============================================
+Q- How to Run app in production
+A- npx parcel build index.html
+npm for install
+npx = execute npm which exctly equal to ==> npm run
+now we added buid in script to shorten command
+ "scripts": {
+    "start": "parcel index.html",
+    "test": "jest",
+    "build":"parcel build index.html"
+  },
+now we can use==> "npm run build"
+shorcut - "npm build"
+
+==================================================
+Q_ Does parcel remove console?
+a- parcel does nt remove console.log directly . for that we need to use"BABEL PLUGIN transform remove console" . Q-How to install this package
+Ans- npm install package name
+NOTE- you have take care a- whther you want to add this as dev dependency then add --save-dev or -D
+b- or normal dependency just remove --save-dev or -d
+use command----
+npm install babel-plugin-transform-remove-console --save-dev
+ 
+Q- where can you see installed packega?
+Ans- [ackage.json 
+a-inside "dependency" or inside "devDependencies"
+2-install packege ka originalcode node module me bhi check kr sakte ho
+
+Q- just installing packge do all the job
+A- No , we have to configure it.
+link-
+https://www.npmjs.com/package/babel-plugin-transform-remove-console
+go to npm website of that package there is wriiten Usage you can check that
+
+Ans - babel.rc - babel ki configration file
+==> create " .babelrc" file then add configration in this file
+// with options
+{
+  "plugins": [ ["transform-remove-console", { "exclude": [ "error", "warn"] }] ]
+}
+
+========================================
+important note- npm run build jab bhi karo remove dist foleder then use build command wrna same copy banegi same code ka inside dist
+
+=================================================
+whnever I have array in create element means sibiling we have to give keys to them
+
+use documention of react reconcilation of key
+read "Diffing Algorithm"
+1- whnever there is multiple children always give key
+2- pass key as a prop (attribute)
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+const heading1 = React.createElement(
+    "h1",
+    {id: "title",
+     key: "h1"   },
+    "heading1 from parcel"
+);
+
+3- in object there is props=> key and id
+react uses key , html uses id
+4- key always be unique
+5- props is object
+
+const heading1 = React.createElement(
+    "h1",
+    {id: "title",
+     key: "h1"   },
+    "heading1 from parcel"
+);
+console.log(heading1);
+
+1- creteElemnt give object in console
+output---------------------------
+Object
+$$typeof
+: 
+Symbol(react.element)
+key
+: 
+"h1"
+props
+: 
+{id: 'title', children: 'heading1 from parcel'}
+ref
+: 
+null
+type
+: 
+"h1"
+_owner
+: 
+null
+_store
+: 
+{validated: false}
+_self
+: 
+null
+_source
+: 
+null
+[[Prototype]]
+: 
+Object
+
+q- what happend to object
+object convert to html and inject in into DOM by reactDOM
+
+
+
+=========================================
+render = updating dom loaading dom
+===================================================
+react.create element se big structure banane me bahut lamba code likhna padh raha....that why we use JSX
+Q- What is JSX
+A- import cereateElement now we can right
+import React from "react";
+import { createElement as ce } from "react";
+import ReactDOM from "react-dom/client";
+const heading1 = ce(
+    "h1",
+    {id: "title",
+     key: "h1"   },
+    "heading1 from parcel"
+);
+"h1" ==== react element
+{}====object is props
+
+again it is messsy . that's use JSX
+
+const heading1 = <h1 id="title" key ="h1">Heading</h1>
+console.log(heading1)
+
+this is JSX code called as JSX Expression
+ouput---------------------------
+object
+{$$typeof: Symbol(react.element), type: 'h1', key: 'h1', ref: null, props: {…}, …}
+$$typeof
+: 
+Symbol(react.element)
+key
+: 
+"h1"
+props
+: 
+{id: 'title', children: 'Heading'}
+ref
+: 
+null
+type
+: 
+"h1"
+_owner
+: 
+null
+_store
+: 
+{validated: false}
+_self
+: 
+undefined
+_source
+: 
+{fileName: 'app.js', lineNumber: 4, columnNumber: 18}
+[[Prototype]]
+: 
+Object
+
+===================================================
+Q- is Jsx html inside javascript
+A- False
+Jsx is html like syntax but it is not Html inside Js
+
+q-diffrece between HTml and JSX
+in html we use padding-left but in jsx we use camelcase
+in html we use class, injsx we use className
+
+Q- How does this JSX work inside browser
+const heading1 = <h1 id="title" key ="h1">Heading</h1>
+console.log(heading1)
+
+1- const heading1 = (<h1 id="title" key ="h1">Heading</h1>)
+
+Very Important - 
+
+put this console...it will give error.Uncaught SyntaxError: Unexpected token '<'
+bacause of angular baracket. js does not understand jsx it is babel who understands this and covert into older version code
+q- babel take this piece of code and and convert it
+it is transcompiler for JS
+1- read step by step and created h1 id key and give browser compatible code whcih is this
+const heading1 = React.createElement ("h2",
+{id:"title",
+key:"h1"}
+,
+"Heading"
+)
+2- this object render into html and inject in DOM by REACT DOME
+this how JSX works
+
+=====================Home work ====================
+Q- hoe create multiple div
+diff uses of jsx
+diff tags in jsx 
+image tag in jsx
+
+Advange of JSX
+- maintainlibilty
+- Readibility
+- sentactic sugar
+- devoloper firndly
+- less code
+- no repitation
+
+==============================================
+babel is not in package.json where is coming and using in jsx
+Ans- Babel comes with parcel as parcel dependency
+
+IMP NOTE====package.json ek hamne create kiya jime dependency dev dependency ka version maintain hoga
+ek node module me create hua package.json jisme transitive dependency ka version maintain hoga
+
+
+========================================================
+Component - 
+q- What is react component?
+there is two component 
+a- functional component === new way of writing code
+b- class component =======old way of writing code
+
+================================================
+Q- what is functional Element?
+it is object.
+Q- what is functional component?
+Ans- nothing but a JS funtion which return some react element some jSX
+exp
+const headerComponent = ()=>{
+    return(
+        <div>
+            <h1>Functional Component</h1>
+            <h2>H2 Tag</h2>
+        </div>
+    )
+}OR=====
+const headerComponent = ()=>{
+    (
+        <div>
+            <h1>Functional Component</h1>
+            <h2>H2 Tag</h2>
+        </div>
+    )
+}
+===============================================
+root.render(<headerComponent/>);
+
+Render functional component using <headerComponent/>
+
+======================================================
+Q-Add react element  which is stroed variable heading2 in Functional component
+A- use {} to add vaibale
+const heading2 = (<h2 id="title" key ="h2">Heading React Element</h2>)
+
+// JSX inside Functional Component
+const HeaderComponent = ()=>{
+    return(
+        <div>
+            <h1>H1 Functional Component</h1>
+            <h2>{heading2}</h2>
+            <h2>H2 Tag</h2>
+        </div>
+    )
+}
+=====================================================
+Q- Add functional component Title into functional component HeaderComponent
+Ans- use tag <component />
+
+Method 1 (Best)
+Exp- 
+//Functional component Title
+const Title = ()=> (<h2 id="title" key ="h2">Title</h2>)
+
+// JSX inside Functional Component HeaderComponent
+
+const HeaderComponent = ()=>{
+    return(
+        <div>
+        {/* added functional component inside functional component */}
+            <Title/>
+            <h1>H1 Functional Component</h1>
+            <h2>H2 Tag</h2>
+        </div>
+    )
+}
+
+Method 2
+functionalcomponent is function call this function inside another function
+{Title()}
+Exp-
+//Functional component Title
+const Title = ()=> (<h1 id="title" key ="h2">Title</h1>)
+
+// JSX inside Functional Component HeaderComponent
+
+const HeaderComponent = ()=>{
+    return(
+        <div>
+            {/*OR added functional component inside functional component by calling function as functional compoent is function*/}
+            {Title()}
+            <h2>H1 Functional Component</h2>
+            <h2>H2 Tag</h2>
+        </div>
+    )
+}
+
+This is know as "comopent composition "
+========================================================
+Q- Super power of JSX
+JSX sanitizes the code ..prevent XSS (cross-site-scripting) attack
+IT menas it is very safe
+===================================================
+index.js:1 Warning: Functions are not valid as a React child. This may happen if you return a Component instead of <Component /> from render. Or maybe you meant to call this function rather than return it.
+    at div
+    at HeaderComponent
+{Title} ====title function ko aise use karenge to error dega
+use either <Title/> oR {Title()}
+=====================================================
+
+Q- Component Composition
+if I have to use component inside a component called component composition
+OR
+if I have to use functional component inside functional component then it is called component composition
+
+==========================END ================================
